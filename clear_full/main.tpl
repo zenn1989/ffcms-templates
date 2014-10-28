@@ -66,7 +66,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            {% include 'widgets/left_menu.tpl' %}
+            {{ module.menu.left }}
         </div>
         {% if module.news_top_discus %}
             <div class="col-md-4">{{ module.news_top_discus }}</div>

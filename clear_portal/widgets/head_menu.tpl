@@ -1,5 +1,5 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -22,25 +22,34 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.id > 0 %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.name }} <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i> {{ user.name }}
+                            {% set requestNew = module.friendrequest_new_count + module.message_new_count %}
+                            <span class="label {% if requestNew > 0 %}label-danger{% else %}label-primary{% endif %}">{{ requestNew|default(0) }}</span>
+                            <b class="caret"></b>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ system.url }}/user/id{{ user.id }}">{{ language.position_header_toprofile }}</a></li>
-                            <li><a href="{{ system.url }}/user/id{{ user.id }}/messages">{{ language.position_header_messages }} ({{ module.message_new_count }})</a></li>
-                            <li><a href="{{ system.url }}/user/id{{ user.id }}/friends/request">{{ language.position_header_friendrequests }} ({{ module.friendrequest_new_count }})</a></li>
+                            <li><a href="{{ system.url }}/user/id{{ user.id }}/messages">{{ language.position_header_messages }}
+                                    <span class="label {% if module.message_new_count > 0 %}label-danger{% else %}label-primary{% endif %}">{{ module.message_new_count }}</span>
+                                </a></li>
+                            <li><a href="{{ system.url }}/user/id{{ user.id }}/friends/request">{{ language.position_header_friendrequests }}
+                                    <span class="label {% if module.friendrequest_new_count > 0 %}label-danger{% else %}label-primary{% endif %}">{{ module.friendrequest_new_count }}</span>
+                                </a></li>
                             {% if user.news_add %}
-                            <li><a href="{{ system.url }}/news/add">{{ language.news_add_menu_title }}</a></li>
+                                <li><a href="{{ system.url }}/news/add">{{ language.news_add_menu_title }}</a></li>
                             {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ system.url }}/user/logout.html">{{ language.usercontrol_menu_exit }}</a></li>
                         </ul>
                     </li>
-                    {% if user.admin %}
+                    {% if user.admin_panel %}
                         <li><a href="{{ system.script_url }}/admin.php">{{ language.position_header_adminpanel }}</a></li>
                     {% endif %}
                 {% endif %}
                 {% if user.id < 1 %}
                     <li><a href="{{ system.url }}/user/register.html">{{ language.usercontrol_menu_reg }}</a></li>
-                    <li><a href="{{ system.url }}/user/login.html">{{ language.usercontrol_menu_auth }}</a></li>
+                    <li><a href="{{ system.url }}/user/login.html{% if system.uri != null %}?out={{ system.uri }}{% endif %}">{{ language.usercontrol_menu_auth }}</a></li>
                 {% endif %}
             </ul>
         </div>

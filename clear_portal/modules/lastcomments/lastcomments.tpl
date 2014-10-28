@@ -1,6 +1,8 @@
 <div class="panel panel-default">
+    <div class="panel-heading">
+        {{ language.lastcomments_title }}
+    </div>
     <div class="panel-body">
-        <h4>{{ language.lastcomments_title }}</h4>
         {% if local.comment %}
             {% for comment in local.comment %}
                 {% if comment.user_id < 1 %}

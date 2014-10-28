@@ -24,7 +24,7 @@
                 {% else %}
                     <button type="button" class="btn btn-danger"{% if local.profile.is_self %} data-toggle="modal" data-target="#karmahistory"{% endif %}>{{ language.usercontrol_profile_karma_title }}: <span id="karmabutton">{{ local.profile.karma }}</span></button>
                 {% endif %}
-                {% if user.id > 0 and not local.profile.is_self %}
+                {% if user.id > 0 and not local.profile.is_self and local.profile.karma_can_change %}
                 <button type="button" class="btn btn-success" onclick="return changeKarma(1, {{ local.profile.user_id }}, '{{ system.self_url }}');"><i class="fa fa-thumbs-up"></i> +1</button>
                 <button type="button" class="btn btn-danger" onclick="return changeKarma(0, {{ local.profile.user_id }}, '{{ system.self_url }}');"><i class="fa fa-thumbs-down"></i> -1</button>
                 {% endif %}
@@ -58,6 +58,9 @@
                         {% else %}
                             <form class="hidden" id="friendget" action="" method="post"><input type="hidden" name="requestfriend" value="1"/></form>
                             <li><a onclick="document.getElementById('friendget').submit();"><i class="fa fa-hand-o-right"></i>  {{ language.usercontrol_profile_mymenu_addfriend }}</a></li>
+                        {% endif %}
+                        {% if local.profile.pm_direct %}
+                            <li><a href="{{ system.url }}/user/id{{ user.id }}/messages/write/{{ local.profile.user_id }}"><i class="fa fa-envelope"></i> {{ language.usercontrol_profile_mymenu_writemsg }}</a></li>
                         {% endif %}
                     {% endif %}
                 {% endif %}

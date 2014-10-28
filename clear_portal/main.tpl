@@ -35,7 +35,7 @@
 
 {% include 'widgets/head_menu.tpl' %}
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="row">
         <div class="col-md-8">
@@ -49,7 +49,7 @@
     <div class="row container-content">
 
         <div class="col-md-3">
-            {% include 'widgets/left_menu.tpl' %}
+            {{ module.menu.left }}
             {{ module.news_top_discus }}
             {{ module.news_top_view }}
             {{ module.news_new }}

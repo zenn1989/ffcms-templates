@@ -76,7 +76,7 @@
         </div>
 
         <div class="col-md-4">
-            {% include 'widgets/left_menu.tpl' %}
+            {{ module.menu.left }}
             {{ module.news_top_discus }}
             {{ module.news_top_view }}
             {{ module.news_new }}
